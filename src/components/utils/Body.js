@@ -15,22 +15,47 @@ const Body = () => {
         // showCloseButton: true,
         tag: "wisdom",
         env: "test",
-      }
-    );
+        // API Keys for using Gasless
+        apiKeys: {
+          // Ethereum: string,
+          Polygon: 'u5GdPUQES.fb87b92b-cc45-4a28-90cc-dd63f3b19ae7',
+          // Avalanche: string,
+        },
+        rpcUrls: {
+          // Ethereum: string,
+          Polygon: 'https://polygon-mumbai.g.alchemy.com/v2/0QdTrxqIYXImRS7f00IiOAzZnAV-q5fX',
+          // Avalanche: string,
+        },
+        // NOTE: following 2 callback emit when tx is *sent*, you should check the status by yourself
+        onDeposit: (e) => console.log("Deposit " + e), // emit when depost tx is sent
+        onExit: (e) => console.log("Exit " + e), // emit when exit tx (receiver will receive tokens) is sent
+        /*
+          input: {
+          sourceChain?: string;
+          destinationChain?: string;
+          token?: string;
+          amount?: string;
+          receiver?: string;
+          gasless: boolean;
+          }
+        */
+        onChange: (input) => console.log("Input " + JSON.stringify(input)),
+        }
+        );
 
-    if (widget) {
-      setHyphenWidget(widget);
-    }
-  }, []);
+        if (widget) {
+          setHyphenWidget(widget);
+        }
+          }, []);
 
-  function handleOpen() {
-    hyphenWidget.open();
-  }
+        function handleOpen() {
+          hyphenWidget.open();
+        }
 
-  function handleClose() {
-    hyphenWidget.close();
-  }
-  const [popUp, setPopUp] = useState(true);
+        function handleClose() {
+          hyphenWidget.close();
+        }
+        const [popUp, setPopUp] = useState(true);
 
   return (
     <div>
@@ -55,9 +80,7 @@ const Body = () => {
               More than 100 countries and territories supported with over 60
               currencies, so users pay in their local currency,<br/>
               Support for all major blockchains, tokens and stable-coins. 80+
-              cryptocurrencies in total<br/>
-              Continuously adding new currencies, blockchains, digital assets
-              and protocols
+              cryptocurrencies in total
             </li>
           </ul>
           <div className="social">
@@ -80,9 +103,6 @@ const Body = () => {
           <div className="forbuttons">
             <button type="button" className="launch-button" onClick={() => {setPopUp(!popUp);handleOpen()}}>
               Launch App
-            </button>
-            <button type="button" className="launch-button">
-              Buy Others
             </button>
           </div>
         </div>
